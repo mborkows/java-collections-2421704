@@ -15,7 +15,15 @@ public class RoomService {
 	}
 	
 	public void applyDiscount(final double discount) {
-		
+
+//		inventory.stream().forEach(new Consumer<Room>() {
+//			@Override
+//			public void accept(Room room) {
+//				room.setRate(room.getRate()*(1-discount));
+//			}
+//		});
+
+		inventory.stream().forEach(room -> room.setRate(room.getRate()*(1-discount)));
 		//Reduces the rate of each room by the provided discount
 	
 	}
@@ -23,16 +31,16 @@ public class RoomService {
 	public Collection<Room> getRoomsByCapacity(final int requiredCapacity) {
 		
 		//Returns a new collection of rooms that meet or exceed the provided capacity
-		
-		return null;
-		
+		return inventory.stream().filter(room -> room.getCapacity() >= requiredCapacity).collect(Collectors.toList());
+
 	}
 	
 	public Collection<Room> getRoomByRateAndType(final double rate, final String type){
 	
 		//Returns a new collection of rooms with a rate below the provided rate and that match the provided type
+
 		
-		return null;
+		return inventory.stream().filter(room -> room.getType() == type).filter(room -> room.getRate() < rate).collect(Collectors.toList());
 		
 	}
 	
